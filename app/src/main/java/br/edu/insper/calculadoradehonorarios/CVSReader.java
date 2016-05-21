@@ -17,16 +17,19 @@ import java.util.Map;
  * Created by Rafael on 5/17/2016.
  */
 public class CVSReader {
+    private ArrayList<Categoria> categorias = new ArrayList<>();
+
+    public CVSReader (AssetManager assetManager) {
+        run(assetManager);
+    }
 
     public void run (AssetManager assetManager) {
-
 
         String csvFile = "tuss.csv";
         BufferedReader br = null;
         String line = "";
         String splitBy = ",";
 
-        ArrayList<Categoria> categorias = new ArrayList<>();
         int counter = -1;
 
         try {
@@ -76,9 +79,9 @@ public class CVSReader {
         catch (ArrayIndexOutOfBoundsException e) {
             Log.d("ERRO", "IOB");
         }
+    }
 
-        for (Subcategoria i : categorias.get(1).retornaSubcategorias()) {
-            Log.i("SUB", i.retornaNomeDaSubcategoria());
-        }
+    public ArrayList<Categoria> retornaListaDeCategorias () {
+        return categorias;
     }
 }
