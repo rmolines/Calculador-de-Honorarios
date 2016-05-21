@@ -26,39 +26,46 @@ public class CVSReader {
         String line = "";
         String splitBy = ",";
 
-
-        Map<String, ArrayList<Map<String, ArrayList<String>>>> categorias = new HashMap<>();
+        ArrayList<Categoria> categorias = new ArrayList<>();
         int counter = -1;
+
         try {
             InputStream csvStream = assetManager.open(csvFile);
             BufferedReader reader = new BufferedReader(new InputStreamReader(csvStream, "UTF8"));
             String csvLine;
             int categoriaCounter = 0;
             int subcategoriaCounter = 0;
+            int grupoCounter = 0;
+
             while ((csvLine = reader.readLine()) != null) {
                 String[] row = csvLine.split(",");
                 if (row.length == 3) {
-                    String categoria = (row[2].substring(0, row[2].indexOf("(")));
-                    String subcategoria = row[2].substring(row[2].indexOf("("), row[2].indexOf(")") + 1);
-                    String grupo = row[2].substring(row[2].indexOf(")") + 1);
+                    String nomeDaCategoria = row[2];
+                    Categoria categoria = new Categoria(nomeDaCategoria, categoriaCounter);
+                    Subcategoria subcategoria = new Subcategoria(nomeDaCategoria, subcategoriaCounter);
+                    Grupo grupo = new Grupo(nomeDaCategoria, grupoCounter);
 
-                    if (!categorias.containsKey(categoria)) {
-                        categorias.put(categoria, new ArrayList<Map<String, ArrayList<String>>>());
-                        ArrayList<Map <String, ArrayList<String>>> categoriaAtual = categorias.get(categoria);
-                        categoriaAtual.add(new HashMap<String, ArrayList<String>>());
-                        counter++;
-                        Log.i("IF", Integer.toString(counter));
-                        categoriaAtual.get(counter).put(subcategoria, new ArrayList<String>());
-                        categoriaAtual.get(counter).get(subcategoria).add(grupo);
-                    } else {
-                        Map <String, ArrayList<String>> subcategoriaAtual = categorias.get(categoria).get(counter);
-                        Log.i("ELSE", "");
-                        if (!subcategoriaAtual.containsKey(subcategoria)) {
-                            subcategoriaAtual.put(subcategoria, new ArrayList<String>());
-                            subcategoriaAtual.get(subcategoria).add(grupo);
+                    if (!categorias.isEmpty()) {
+                        Categoria categoriaAtual = categorias.get(categorias.size()-1);
+                        if (!categoriaAtual.retornaNomeDaCategoria().equals(categoria.retornaNomeDaCategoria())) {
+                            subcategoria.criarGrupo(grupo);
+                            categoria.criarSubcategoria(subcategoria);
+                            categorias.add(categoria);
                         } else {
-                            subcategoriaAtual.get(subcategoria).add(grupo);
+                            if (!categoriaAtual.retornaSubcategorias().isEmpty()) {
+                                Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
+                                if (!subcategoriaAtual.retornaNomeDaSubcategoria().equals(subcategoria.retornaNomeDaSubcategoria())) {
+                                    subcategoria.criarGrupo(grupo);
+                                    categoriaAtual.criarSubcategoria(subcategoria);
+                                } else {
+                                    subcategoriaAtual.criarGrupo(grupo);
+                                }
+                            }
                         }
+                    } else {
+                        subcategoria.criarGrupo(grupo);
+                        categoria.criarSubcategoria(subcategoria);
+                        categorias.add(categoria);
                     }
                 }
             }
@@ -70,8 +77,8 @@ public class CVSReader {
             Log.d("ERRO", "IOB");
         }
 
-        for (String i : categorias.keySet()) {
-            Log.i("SUB", i);
+        for (Subcategoria i : categorias.get(1).retornaSubcategorias()) {
+            Log.i("SUB", i.retornaNomeDaSubcategoria());
         }
     }
 }
