@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+<<<<<<< HEAD
+    tools:context="edu.insper.br.calculadora2.MainActivity">
+=======
     tools:context="edu.insper.br.calculadoradehonorarios.MainActivity">
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
