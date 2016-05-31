@@ -1,15 +1,17 @@
-package br.edu.insper.calculadoradehonorarios;
+package edu.insper.br.calculadoradehonorarios;
 
 import java.util.ArrayList;
 
-/**
- * Created by Rafael on 5/20/2016.
- */
 public class Categoria {
     private String nome;
     private int posicao;
     private int numeroDeSubcategorias;
     private ArrayList<Subcategoria> subcategorias;
+    private ArrayList<ArrayList<Subcategoria>> lista_sub;
+
+    public void setLista_sub(ArrayList<ArrayList<Subcategoria>> lista_sub) {
+        this.lista_sub = lista_sub;
+    }
 
     public Categoria (String categoria, int posicao) {
         nome = categoria.substring(0, categoria.indexOf("("));
@@ -20,6 +22,7 @@ public class Categoria {
         this.posicao = posicao;
         numeroDeSubcategorias = 0;
         subcategorias = new ArrayList<>();
+        lista_sub = new ArrayList<>();
     }
 
     public void criarSubcategoria (Subcategoria subcategoria) {

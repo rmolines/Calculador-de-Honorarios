@@ -1,21 +1,19 @@
-package br.edu.insper.calculadoradehonorarios;
+package edu.insper.br.calculadoradehonorarios;
+
+/**
+ * Created by Khalil on 22/05/2016.
+ */
 
 import android.content.res.AssetManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by Rafael on 5/17/2016.
- */
+
 public class CVSReader {
     private ArrayList<Categoria> categorias = new ArrayList<>();
 
@@ -30,7 +28,7 @@ public class CVSReader {
         String line = "";
         String splitBy = ",";
 
-        int counter = -1;
+        int counter = 0;
 
         try {
             InputStream csvStream = assetManager.open(csvFile);
@@ -46,7 +44,7 @@ public class CVSReader {
                     String nomeDaCategoria = row[2];
                     Categoria categoria = new Categoria(nomeDaCategoria, categoriaCounter);
                     Subcategoria subcategoria = new Subcategoria(nomeDaCategoria, subcategoriaCounter);
-                    Grupo grupo = new Grupo(nomeDaCategoria, grupoCounter);
+                    Grupo grupo = new Grupo(nomeDaCategoria, counter);
 
                     if (!categorias.isEmpty()) {
                         Categoria categoriaAtual = categorias.get(categorias.size()-1);
@@ -70,7 +68,18 @@ public class CVSReader {
                         categoria.criarSubcategoria(subcategoria);
                         categorias.add(categoria);
                     }
+                } else {
+                    Categoria categoriaAtual = categorias.get(categorias.size()-1);
+                    Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
+                    Grupo grupoAtual = subcategoriaAtual.retornaUltimoGrupo();
+
+                    float valor = Float.parseFloat(row[3]);
+                    String nome = row[2];
+                    int numeroDeAuxiliares = Integer.parseInt(row[5]);
+                    Procedimento procedimento = new Procedimento(valor, numeroDeAuxiliares, nome);
+                    grupoAtual.adcionaProcedimento(procedimento);
                 }
+                counter++;
             }
         }
         catch (IOException e) {
@@ -82,6 +91,8 @@ public class CVSReader {
     }
 
     public ArrayList<Categoria> retornaListaDeCategorias () {
+        System.out.println(categorias);
         return categorias;
+
     }
 }

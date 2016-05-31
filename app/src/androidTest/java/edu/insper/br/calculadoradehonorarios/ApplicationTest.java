@@ -1,4 +1,4 @@
-package br.edu.insper.calculadoradehonorarios;
+package edu.insper.br.calculadoradehonorarios;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
