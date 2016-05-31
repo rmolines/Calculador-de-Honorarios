@@ -7,5 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listViewSub"
+<<<<<<< HEAD
         android:layout_gravity="center_horizontal" />
+=======
+        android:layout_gravity="center_horizontal"
+        android:padding="10dip"/>
+
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f
 </LinearLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,19 +7,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-<<<<<<< HEAD
-    tools:context="edu.insper.br.calculadora2.MainActivity"
-=======
-    tools:context="edu.insper.br.calculadoradehonorarios.MainActivity"
->>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f
-    tools:showIn="@layout/activity_main">
+    tools:context="edu.insper.br.calculadoradehonorarios.CustoActivity">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id ="@+id/ListViewMain"
-        />"
+        android:id="@+id/listViewCusto"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

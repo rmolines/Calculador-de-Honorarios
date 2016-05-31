@@ -1,3 +1,4 @@
+<<<<<<< HEAD:app/src/main/java/br/edu/insper/calculadoradehonorarios/CVSReader.java
 package br.edu.insper.calculadoradehonorarios;
 /**
  * Created by Rafael on 5/17/2016.
@@ -17,13 +18,24 @@ compiled into an application except during development.
 Debug logs are compiled in but stripped at runtime. 
 Error, warning and info logs are always kept.
 */
+=======
+package edu.insper.br.calculadoradehonorarios;
+
+/**
+ * Created by Khalil on 22/05/2016.
+ */
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f:app/src/main/java/edu/insper/br/calculadoradehonorarios/CVSReader.java
 
 import java.io.BufferedReader; /**Reads text from a character-input stream, 
 buffering characters so as to provide for the efficient reading of characters, 
 arrays, and lines.*/
 
+<<<<<<< HEAD:app/src/main/java/br/edu/insper/calculadoradehonorarios/CVSReader.java
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+=======
+import java.io.BufferedReader;
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f:app/src/main/java/edu/insper/br/calculadoradehonorarios/CVSReader.java
 import java.io.IOException;
 
 import java.io.InputStream; /**This abstract class is the superclass
@@ -37,6 +49,7 @@ charset may be accepted. */
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD:app/src/main/java/br/edu/insper/calculadoradehonorarios/CVSReader.java
 import java.util.HashMap; /**Hash table based implementation of the Map interface.
 This implementation provides all of the optional map operations, and permits null 
 values and the null key. (The HashMap class is roughly equivalent to Hashtable,
@@ -54,6 +67,8 @@ class, make specific guarantees as to their order; others, like the HashMap clas
 do not. */
 
 
+=======
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f:app/src/main/java/edu/insper/br/calculadoradehonorarios/CVSReader.java
 
 public class CVSReader {
     private ArrayList<Categoria> categorias = new ArrayList<>();
@@ -69,7 +84,7 @@ public class CVSReader {
         String line = "";
         String splitBy = ",";
 
-        int counter = -1;
+        int counter = 0;
 
         try {
             InputStream csvStream = assetManager.open(csvFile);
@@ -85,7 +100,7 @@ public class CVSReader {
                     String nomeDaCategoria = row[2];
                     Categoria categoria = new Categoria(nomeDaCategoria, categoriaCounter);
                     Subcategoria subcategoria = new Subcategoria(nomeDaCategoria, subcategoriaCounter);
-                    Grupo grupo = new Grupo(nomeDaCategoria, grupoCounter);
+                    Grupo grupo = new Grupo(nomeDaCategoria, counter);
 
                     if (!categorias.isEmpty()) {
                         Categoria categoriaAtual = categorias.get(categorias.size()-1);
@@ -109,7 +124,18 @@ public class CVSReader {
                         categoria.criarSubcategoria(subcategoria);
                         categorias.add(categoria);
                     }
+                } else {
+                    Categoria categoriaAtual = categorias.get(categorias.size()-1);
+                    Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
+                    Grupo grupoAtual = subcategoriaAtual.retornaUltimoGrupo();
+
+                    float valor = Float.parseFloat(row[3]);
+                    String nome = row[2];
+                    int numeroDeAuxiliares = Integer.parseInt(row[5]);
+                    Procedimento procedimento = new Procedimento(valor, numeroDeAuxiliares, nome);
+                    grupoAtual.adcionaProcedimento(procedimento);
                 }
+                counter++;
             }
         }
         catch (IOException e) {
@@ -121,6 +147,8 @@ public class CVSReader {
     }
 
     public ArrayList<Categoria> retornaListaDeCategorias () {
+        System.out.println(categorias);
         return categorias;
+
     }
 }

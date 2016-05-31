@@ -1,10 +1,6 @@
-package br.edu.insper.calculadoradehonorarios;
+package edu.insper.br.calculadoradehonorarios;
 
 import java.util.ArrayList;
-
-/**
- * Created by Rafael on 5/20/2016.
- */
 public class Subcategoria {
     private String nome;
     private int posicao;
@@ -12,7 +8,7 @@ public class Subcategoria {
     private ArrayList<Grupo> grupos;
 
     public Subcategoria (String categoria, int posicao) {
-        nome = categoria.substring(categoria.indexOf("("), categoria.indexOf(")")+1);
+        nome = categoria.substring(categoria.indexOf("(")+1, categoria.indexOf(")"));
         this.posicao = posicao;
         numeroDeGrupos = 0;
         grupos = new ArrayList<>();
@@ -27,10 +23,11 @@ public class Subcategoria {
     }
 
     public ArrayList<Grupo> retornaGrupos () {
-        return grupos;
+        return  grupos;
     }
 
     public boolean temGrupo (Grupo grupo) {
+
         boolean temGrupo = grupos.contains(grupo);
         return temGrupo;
     }

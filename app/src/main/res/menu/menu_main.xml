@@ -1,7 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
     tools:context="edu.insper.br.calculadora2.MainActivity">
+=======
+    tools:context="edu.insper.br.calculadoradehonorarios.MainActivity">
+>>>>>>> 2c7ed8cfccd7a401e60889c1f7fb5cc707f0122f
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
