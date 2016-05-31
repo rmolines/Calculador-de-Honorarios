@@ -14,10 +14,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class CVSReader {
+public class CSVReader {
     private ArrayList<Categoria> categorias = new ArrayList<>();
 
-    public CVSReader (AssetManager assetManager) {
+    public CSVReader(AssetManager assetManager) {
         run(assetManager);
     }
 
@@ -39,9 +39,12 @@ public class CVSReader {
             int grupoCounter = 0;
 
             while ((csvLine = reader.readLine()) != null) {
+
                 String[] row = csvLine.split(",");
-                if (row.length == 3) {
-                    String nomeDaCategoria = row[2];
+
+
+                if (row.length == 2) {
+                    String nomeDaCategoria = row[1];
                     Categoria categoria = new Categoria(nomeDaCategoria, categoriaCounter);
                     Subcategoria subcategoria = new Subcategoria(nomeDaCategoria, subcategoriaCounter);
                     Grupo grupo = new Grupo(nomeDaCategoria, counter);
@@ -52,6 +55,7 @@ public class CVSReader {
                             subcategoria.criarGrupo(grupo);
                             categoria.criarSubcategoria(subcategoria);
                             categorias.add(categoria);
+                            Log.i("categoria", categoria.retornaNomeDaCategoria());
                         } else {
                             if (!categoriaAtual.retornaSubcategorias().isEmpty()) {
                                 Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
@@ -69,21 +73,25 @@ public class CVSReader {
                         categorias.add(categoria);
                     }
                 } else {
-                    Categoria categoriaAtual = categorias.get(categorias.size()-1);
-                    Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
-                    Grupo grupoAtual = subcategoriaAtual.retornaUltimoGrupo();
+                    if (!categorias.isEmpty()) {
+                        Categoria categoriaAtual = categorias.get(categorias.size() - 1);
+                        Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
+                        Grupo grupoAtual = subcategoriaAtual.retornaUltimoGrupo();
 
-                    float valor = Float.parseFloat(row[3]);
-                    String nome = row[2];
-                    int numeroDeAuxiliares = Integer.parseInt(row[5]);
-                    Procedimento procedimento = new Procedimento(valor, numeroDeAuxiliares, nome);
-                    grupoAtual.adcionaProcedimento(procedimento);
+                        float valor = Float.parseFloat(row[3]);
+                        String nome = row[2];
+                        int numeroDeAuxiliares = Integer.parseInt(row[5]);
+                        Procedimento procedimento = new Procedimento(valor, numeroDeAuxiliares, nome);
+                        grupoAtual.adcionaProcedimento(procedimento);
+                    }
                 }
                 counter++;
             }
+
         }
         catch (IOException e) {
             throw new RuntimeException("Error in reading CSV file: "+e);
+
         }
         catch (ArrayIndexOutOfBoundsException e) {
             Log.d("ERRO", "IOB");
@@ -91,8 +99,8 @@ public class CVSReader {
     }
 
     public ArrayList<Categoria> retornaListaDeCategorias () {
-        System.out.println(categorias);
         return categorias;
-
     }
+
+
 }

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         private void populateListView(){
 
             AssetManager assetManager = getAssets();
-            CVSReader cvsReader = new CVSReader(assetManager);
+            CSVReader cvsReader = new CSVReader(assetManager);
             categorias = cvsReader.retornaListaDeCategorias();
             ArrayList<String> categorias_nomes = new ArrayList<>();
 

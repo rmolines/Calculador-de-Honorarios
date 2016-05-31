@@ -28,12 +28,10 @@ public class CustoActivity extends AppCompatActivity {
 
         posicao = getIntent().getIntExtra("posicao",0);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                R.layout.da_item,
-                run(assetManager,posicaoGrupo,posicao));
+
         ListView mLista = (ListView) findViewById(R.id.listViewProcedimentos);
-        mLista.setAdapter(adapter);
+
+
 
     }
 }

@@ -26,7 +26,7 @@ public class ProcedimentosActivity extends AppCompatActivity {
     private BufferedReader br = null;
     private int clique = 0;
     private ArrayList<String> listaDeProcedimentos;
-    private CVSReader cvsReader;
+    private CSVReader cvsReader;
     private ArrayList<Categoria> listaDeCategorias = new ArrayList<>();
 
 
@@ -42,7 +42,7 @@ public class ProcedimentosActivity extends AppCompatActivity {
 
         populateListView();
         AssetManager assetManager = getAssets();
-        cvsReader = new CVSReader(assetManager);
+        cvsReader = new CSVReader(assetManager);
 
 
 
@@ -90,7 +90,7 @@ public class ProcedimentosActivity extends AppCompatActivity {
 
         ArrayList<Categoria> categorias = new ArrayList<>();
         AssetManager assetManager = getAssets();
-        CVSReader cvsReader = new CVSReader(assetManager);
+        CSVReader cvsReader = new CSVReader(assetManager);
         categorias = cvsReader.retornaListaDeCategorias();
         ArrayList<String> categorias_nomes = new ArrayList<>();
 

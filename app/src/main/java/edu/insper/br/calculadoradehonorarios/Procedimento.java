@@ -9,7 +9,7 @@ public class Procedimento {
     private double valor;
     private int numeroDeAxiliares;
     private String nome;
-    private ArrayList<Double> valorAuxiliares;
+    private ArrayList<Double> valorAuxiliares = new ArrayList<>();
 
     public Procedimento (float valor, int numeroDeAxiliares, String nome) {
         this.valor = valor;

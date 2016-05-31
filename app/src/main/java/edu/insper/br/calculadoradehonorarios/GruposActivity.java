@@ -44,7 +44,7 @@ public class GruposActivity extends AppCompatActivity {
 
         ArrayList<Categoria> categorias = new ArrayList<>();
         AssetManager assetManager = getAssets();
-        CVSReader cvsReader = new CVSReader(assetManager);
+        CSVReader cvsReader = new CSVReader(assetManager);
         categorias = cvsReader.retornaListaDeCategorias();
         ArrayList<String> categorias_nomes = new ArrayList<>();
 
