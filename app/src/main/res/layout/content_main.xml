@@ -12,6 +12,8 @@
     tools:context="edu.insper.br.calculadoradehonorarios.MainActivity"
     tools:showIn="@layout/activity_main">
 
+
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,4 +21,16 @@
         android:layout_centerVertical="true"
         android:id ="@+id/ListViewMain"
         />"
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Cálculo"
+        android:id="@+id/buttonFinalizar"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+
+
 </RelativeLayout>

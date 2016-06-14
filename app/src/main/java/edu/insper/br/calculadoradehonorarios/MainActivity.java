@@ -1,41 +1,77 @@
 package edu.insper.br.calculadoradehonorarios;
 
-import android.content.res.AssetManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
+
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-        ArrayList<Categoria> categorias = new ArrayList<>();
 
+    private ArrayList<Classificacao> listaDeCategorias = new ArrayList<>();
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.content_main);
+    private ArrayList<String> somaNomeProcedimentos;
+    private ArrayList<String> somaValorProcedimentos;
+    private ArrayList<String> somaNumeroAuxiliares;
 
-            populateListView();
-            registerClickCallBack();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.content_main);
 
-        }
+        listaDeCategorias = Database.getInstance().retornaListaDeCategorias();
 
-        private void registerClickCallBack() {
+        somaNomeProcedimentos = getIntent().getStringArrayListExtra("somaNomeProcedimentos");
+        somaValorProcedimentos = getIntent().getStringArrayListExtra("somaValorProcedimentos");
+        somaNumeroAuxiliares = getIntent().getStringArrayListExtra("somaNumeroAuxiliares");
 
-            ListView mList = (ListView) findViewById(R.id.ListViewMain);
-            assert mList != null;
-            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        populateListView();
+        registerClickCallBack();
+
+        Button botaoFinalizar = (Button) findViewById(R.id.buttonFinalizar);
+        assert botaoFinalizar!= null;
+
+        if(!somaNomeProcedimentos.isEmpty()){botaoFinalizar.setVisibility(View.VISIBLE);}
+
+        botaoFinalizar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CheckoutActivity.class)
+                            .putStringArrayListExtra("somaNomeProcedimentos",somaNomeProcedimentos)
+                            .putStringArrayListExtra("somaValorProcedimentos",somaValorProcedimentos)
+                            .putStringArrayListExtra("somaNumeroAuxiliares",somaNumeroAuxiliares);
+
+                    startActivity(intent);}
+            });
+
+            //Button botaoBack = (Button) findViewById(R.id.buttonBack);
+            //assert botaoBack!= null;
+
+    }
+
+    private void registerClickCallBack() {
+        ListView mList = (ListView) findViewById(R.id.ListViewMain);
+        assert mList != null;
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
 
-                    Intent intent = new Intent(MainActivity.this, SubcategActivity.class).putExtra("posicaoCategoria",position);
+                    Intent intent = new Intent(MainActivity.this, SubcategActivity.class)
+                            .putExtra("posicaoCategoria",position)
+                            .putStringArrayListExtra("somaNomeProcedimentos",somaNomeProcedimentos)
+                            .putStringArrayListExtra("somaValorProcedimentos",somaValorProcedimentos)
+                            .putStringArrayListExtra("somaNumeroAuxiliares",somaNumeroAuxiliares);
+
+                    Database.getInstance().mudaClassificacaoAtual(listaDeCategorias.get(position));
 
                     startActivity(intent);
 
@@ -45,29 +81,28 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
                 }
             });
-        }
-
-        private void populateListView(){
-
-            AssetManager assetManager = getAssets();
-            CSVReader cvsReader = new CSVReader(assetManager);
-            categorias = cvsReader.retornaListaDeCategorias();
-            ArrayList<String> categorias_nomes = new ArrayList<>();
-
-            for(Categoria i:categorias){
-                String nome = i.retornaNomeDaCategoria();
-                categorias_nomes.add(nome);
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this,
-                    R.layout.da_item,
-                    categorias_nomes);
-            ListView mList = (ListView) findViewById(R.id.ListViewMain);
-            assert mList != null;
-            mList.setAdapter(adapter);
-
-        }
-
     }
+
+    private void populateListView(){
+
+
+        ArrayList<String> nomesDasCategorias = new ArrayList<>();
+
+        for(Classificacao classificacao:listaDeCategorias){
+            String nome = classificacao.retornaNome();
+            nomesDasCategorias.add(nome);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                R.layout.da_item,
+                nomesDasCategorias);
+        ListView mList = (ListView) findViewById(R.id.ListViewMain);
+        assert mList != null;
+        mList.setAdapter(adapter);
+    }
+
+
+
+}
 

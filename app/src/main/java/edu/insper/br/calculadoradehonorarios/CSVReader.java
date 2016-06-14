@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 
 public class CSVReader {
-    private ArrayList<Categoria> categorias = new ArrayList<>();
+    private ArrayList<Classificacao> categorias = new ArrayList<>();
 
     public CSVReader(AssetManager assetManager) {
         run(assetManager);
@@ -45,44 +45,57 @@ public class CSVReader {
 
                 if (row.length == 2) {
                     String nomeDaCategoria = row[1];
-                    Categoria categoria = new Categoria(nomeDaCategoria, categoriaCounter);
-                    Subcategoria subcategoria = new Subcategoria(nomeDaCategoria, subcategoriaCounter);
-                    Grupo grupo = new Grupo(nomeDaCategoria, counter);
+                    Classificacao categoria = new Categoria(nomeDaCategoria);
+                    Classificacao subcategoria = new Subcategoria(nomeDaCategoria);
+                    Classificacao grupo = new Grupo(nomeDaCategoria, counter);
 
                     if (!categorias.isEmpty()) {
-                        Categoria categoriaAtual = categorias.get(categorias.size()-1);
-                        if (!categoriaAtual.retornaNomeDaCategoria().equals(categoria.retornaNomeDaCategoria())) {
-                            subcategoria.criarGrupo(grupo);
-                            categoria.criarSubcategoria(subcategoria);
+                        Classificacao categoriaAtual = categorias.get(categorias.size()-1);
+                        if (!categoriaAtual.retornaNome().equals(categoria.retornaNome())) {
+                            subcategoria.adcionarClassificao(grupo);
+                            categoria.adcionarClassificao(subcategoria);
                             categorias.add(categoria);
-                            Log.i("categoria", categoria.retornaNomeDaCategoria());
                         } else {
-                            if (!categoriaAtual.retornaSubcategorias().isEmpty()) {
-                                Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
-                                if (!subcategoriaAtual.retornaNomeDaSubcategoria().equals(subcategoria.retornaNomeDaSubcategoria())) {
-                                    subcategoria.criarGrupo(grupo);
-                                    categoriaAtual.criarSubcategoria(subcategoria);
+                            if (!categoriaAtual.retornaLista().isEmpty()) {
+                                Classificacao subcategoriaAtual = categoriaAtual.retornaUltimoDaLista();
+                                if (!subcategoriaAtual.retornaNome().equals(subcategoria.retornaNome())) {
+                                    subcategoria.adcionarClassificao(grupo);
+                                    categoriaAtual.adcionarClassificao(subcategoria);
                                 } else {
-                                    subcategoriaAtual.criarGrupo(grupo);
+                                    subcategoriaAtual.adcionarClassificao(grupo);
                                 }
                             }
                         }
                     } else {
-                        subcategoria.criarGrupo(grupo);
-                        categoria.criarSubcategoria(subcategoria);
+                        subcategoria.adcionarClassificao(grupo);
+                        categoria.adcionarClassificao(subcategoria);
                         categorias.add(categoria);
                     }
                 } else {
                     if (!categorias.isEmpty()) {
-                        Categoria categoriaAtual = categorias.get(categorias.size() - 1);
-                        Subcategoria subcategoriaAtual = categoriaAtual.retornaUltimaSubcategoria();
-                        Grupo grupoAtual = subcategoriaAtual.retornaUltimoGrupo();
-
-                        float valor = Float.parseFloat(row[3]);
-                        String nome = row[2];
-                        int numeroDeAuxiliares = Integer.parseInt(row[5]);
+                        Classificacao categoriaAtual = categorias.get(categorias.size() - 1);
+                        Classificacao subcategoriaAtual = categoriaAtual.retornaUltimoDaLista();
+                        Classificacao grupoAtual = subcategoriaAtual.retornaUltimoDaLista();
+                        float valor = 0;
+                        try {
+                            if (!row[2].equals("#REF!")) {
+                                if (row[2].indexOf(".") >= 0) {
+                                    valor = Float.parseFloat(row[2].replace(".", ""));
+                                } else {
+                                    valor = Float.parseFloat(row[2]);
+                                }
+                            } else {
+                                valor = 0;
+                            }
+                        }
+                        catch (ArrayIndexOutOfBoundsException e) {
+                            Log.d("erro", Integer.toString(row.length));
+                            Log.d("linha", row[0]);
+                        }
+                        String nome = row[1];
+                        int numeroDeAuxiliares = Integer.parseInt(row[4]);
                         Procedimento procedimento = new Procedimento(valor, numeroDeAuxiliares, nome);
-                        grupoAtual.adcionaProcedimento(procedimento);
+                        grupoAtual.adcionarClassificao(procedimento);
                     }
                 }
                 counter++;
@@ -93,14 +106,13 @@ public class CSVReader {
             throw new RuntimeException("Error in reading CSV file: "+e);
 
         }
+
         catch (ArrayIndexOutOfBoundsException e) {
-            Log.d("ERRO", "IOB");
+            Log.d("ERRO", Integer.toString(counter));
         }
     }
 
-    public ArrayList<Categoria> retornaListaDeCategorias () {
+    public ArrayList<Classificacao> retornaListaDeCategorias () {
         return categorias;
     }
-
-
 }

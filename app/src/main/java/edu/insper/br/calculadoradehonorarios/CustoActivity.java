@@ -2,14 +2,10 @@ package edu.insper.br.calculadoradehonorarios;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
 
-/**
- * Created by Rafael on 5/30/2016.
- */
 public class CustoActivity extends AppCompatActivity {
 
 

@@ -15,12 +15,27 @@ import java.util.ArrayList;
 
 public class SubcategActivity extends AppCompatActivity {
 
+    private ArrayList<Classificacao> listaDeSubcategorias;
+    private Classificacao classificacaoAtual;
+    private Database database;
+
+    private ArrayList<String> somaNomeProcedimentos;
+    private ArrayList<String> somaValorProcedimentos;
+    private ArrayList<String> somaNumeroAuxiliares;
 
     int posicaoCategoria = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_main);
+
+        database = Database.getInstance();
+        classificacaoAtual = database.retornaClassificaoAtual();
+        listaDeSubcategorias = classificacaoAtual.retornaLista();
+
+        somaNomeProcedimentos = getIntent().getStringArrayListExtra("somaNomeProcedimentos");
+        somaValorProcedimentos = getIntent().getStringArrayListExtra("somaValorProcedimentos");
+        somaNumeroAuxiliares = getIntent().getStringArrayListExtra("somaNumeroAuxiliares");
 
         ListView mList = (ListView) findViewById(R.id.listViewSub);
         posicaoCategoria = getIntent().getIntExtra("posicaoCategoria",0);
@@ -38,9 +53,16 @@ public class SubcategActivity extends AppCompatActivity {
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+                //Log.i("posicao", Integer.toString(position));
 
-                Intent intent = new Intent(SubcategActivity.this, GruposActivity.class).putExtra("posicaoSubcategoria", position);
-                intent.putExtra("posicaoCategoria", posicaoCategoria);
+                database.mudaClassificacaoAtual(listaDeSubcategorias.get(position));
+
+                Intent intent = new Intent(SubcategActivity.this, GruposActivity.class);
+                intent.putExtra("posicaoCategoria", posicaoCategoria).putExtra("posicaoSubcategoria", position)
+                        .putStringArrayListExtra("somaNomeProcedimentos",somaNomeProcedimentos)
+                        .putStringArrayListExtra("somaValorProcedimentos",somaValorProcedimentos)
+                        .putStringArrayListExtra("somaNumeroAuxiliares",somaNumeroAuxiliares);
+
                 startActivity(intent);
 
 
@@ -54,38 +76,21 @@ public class SubcategActivity extends AppCompatActivity {
 
     private void populateListView(){
 
-        ArrayList<Categoria> categorias = new ArrayList<>();
-        AssetManager assetManager = getAssets();
-        CSVReader cvsReader = new CSVReader(assetManager);
-        categorias = cvsReader.retornaListaDeCategorias();
-        ArrayList<String> categorias_nomes = new ArrayList<>();
 
+        ArrayList<String> nomesDasSubcategorias = new ArrayList<>();
 
-        ArrayList<ArrayList<Subcategoria>> list_sub = new ArrayList<>();
-
-
-        for (Categoria i : categorias) {
-            list_sub.add(i.retornaSubcategorias());
-        }
-
-        ArrayList<Subcategoria> lista_sub_escolhida = new ArrayList<>();
-        ArrayList<String> lista_sub_escolhida_nome = new ArrayList<>();
-
-        lista_sub_escolhida = list_sub.get(posicaoCategoria);
-
-        for (Subcategoria i:lista_sub_escolhida){
-            lista_sub_escolhida_nome.add(i.retornaNomeDaSubcategoria());
-
+        for(Classificacao classificacao:classificacaoAtual.retornaLista()){
+            String nome = classificacao.retornaNome();
+            nomesDasSubcategorias.add(nome);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.da_item,
-                lista_sub_escolhida_nome);
+                nomesDasSubcategorias);
         ListView mList = (ListView) findViewById(R.id.listViewSub);
         assert mList != null;
         mList.setAdapter(adapter);
-
     }
 
 }

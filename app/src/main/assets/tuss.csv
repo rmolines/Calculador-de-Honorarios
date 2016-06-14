@@ -1,4 +1,4 @@
-CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
+﻿CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
 10101004,PROCEDIMENTOS GERAIS (CONSULTAS) - CONSULTA ,,,,,
 10101012,Em consultório (no horário normal ou preestabelecido),76.4,0,0,0,0
 10101039,Em pronto socorro,49.43,0,0,0,0
@@ -132,7 +132,7 @@ CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
 20104383,Pulsoterapia / terapia imunológica intravenosa (por sessão) - ambulatorial,138.39,0,0,0,0
 20105002,PROCEDIMENTOS CLÍNICOS (AMBULATORIAIS) - OUTROS,,,,,
 20201001,PROCEDIMENTOS CLÍNICOS (HOSPITALARES) - AVALIAÇÕES/ACOMPANHAMENTOS,,,,,
-20201010,Acompanhamento clínico de transplante renal no período de internação do receptor e do doador (pós-operatório até 15 dias),2.783.33,0,0,0,0
+20201010,Acompanhamento clínico de transplante renal no período de internação do receptor e do doador (pós-operatório até 15 dias),2783.33,0,0,0,0
 20201028,Acompanhamento peroperatório,39.27,0,0,0,0
 20201036,Assistência cardiológica peroperatória em cirurgia geral e em parto (primeira hora),40.57,0,0,0,0
 20201044,Assistência cardiológica peroperatória em cirurgia geral e em parto (horas suplementares) - máximo de 4 horas,20.28,0,0,0,0
@@ -223,7 +223,7 @@ CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
 30101670,Plástica em Z ou W,207.6,0,0,0,0
 30101689,Reconstrução com retalhos de gálea aponeurótica,391.95,0,2,5,0
 30101697,Retalho composto (incluindo cartilagem ou osso),549.99,0,1,5,0
-30101700,RETALHO LOCAL OU REGIONAL,29.216.992,0,2,3,0
+30101700,RETALHO LOCAL OU REGIONAL,29216.992,0,2,3,0
 30101735,Retirada de corpo estranho subcutâneo,50.24,0,0,0,0
 30101743,Retração cicatricial de axila - tratamento cirúrgico,165.23,0,2,3,0
 30101751,Retração cicatricial de zona de flexão e extensão de membros superiores e inferiores,275.61,0,1,3,0
@@ -571,7 +571,7 @@ CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
 30401038,Exérese de tumor com fechamento primário,96.07,0,2,2,0
 30401046,Outros defeitos congênitos que não a microtia,457.28,0,1,3,0
 30401054,Reconstrução  de orelha - retoques,226.88,0,1,3,0
-30401062,Reconstrução de unidade anatômica do pavilhão auricular - por estágio,457.28,0,1,2,0
+30401062,Reconstrução de unidade anatômica do pavilhão auricular - por estágio,45.28,0,1,2,0
 30401070,Reconstrução total de orelha (único estágio),611.11,0,3,5,0
 30401089,Ressecção de tumor de pavilhão auricular. incluindo parte do osso temporal,946.97,0,3,7,0
 30401097,Ressecção subtotal ou total de orelha,165.23,0,2,3,0
@@ -1312,8 +1312,7 @@ CÓDIGO,DESCRIÇÃO,NOVO VALOR (HM),VALOR (CUSTO),AUXILIAR,PORTE,FILME
 30735076,Instabilidade multidirecional,649.41,0,1,6,0
 30735084,Ressecção lateral da clavícula,420.14,0,1,4,0
 30735092,Tenotomia da porção longa do bíceps,503.39,0,1,5,0
-30736005,"PROCEDIMENTOS CIRÚRGICOS E INVASIVOS (SISTEMA MÚSCULO ESQUELÉTICO E ARTICULAÇÕES) -
-PROCEDIMENTOS VIDEOARTROSCÓPICOS DE COTOVELO",,,,,
+30736005,PROCEDIMENTOS CIRÚRGICOS E INVASIVOS (SISTEMA MÚSCULO ESQUELÉTICO E ARTICULAÇÕES) - PROCEDIMENTOS VIDEOARTROSCÓPICOS DE COTOVELO,,,,,
 30736013,Sinovectomia  total,420.14,0,1,4,0
 30736021,Sinovectomia parcial ou subtotal,267.36,0,1,3,0
 30736030,Condroplastia  (com remoção de  corpos livres),267.36,0,1,3,0
@@ -2423,8 +2422,7 @@ PROCEDIMENTOS VIDEOARTROSCÓPICOS DE COTOVELO",,,,,
 40101045,Teste ergométrico convencional - 3 ou mais derivações simultâneas (inclui ECG basal convencional),66.93,0,0,0,0
 40101053,Variabilidade da frequência cardíaca,28.25,0,0,0,0
 40101061,Ergoespirometria ou teste cardiopulmonar de exercício completo (espirometria forçada. consumo de O2. produção de CO2 e derivados. ECG. oximetria),148.5,0,0,0,0
-40102009,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) -
-TUBO DIGESTIVO",,,,,
+40102009,PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) - TUBO DIGESTIVO,,,,,
 40102025,Manometria computadorizada anorretal,185.88,0,0,0,0
 40102033,Manometria computadorizada anorretal para biofeedback - 1ª sessão,85.49,0,0,0,0
 40102041,Manometria computadorizada anorretal para biofeedback - demais sessões,79.08,0,0,0,0
@@ -2435,8 +2433,7 @@ TUBO DIGESTIVO",,,,,
 40102092,pH-metria esofágica computadorizada com dois canais,312.28,0,0,0,0
 40102106,pH-metria esofágica computadorizada com três canais,312.28,0,0,0,0
 40102130,pH-metria esofágica de 24 horas com quatro canais,101.56,0,0,0,0
-40103005,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) -
-SISTEMA NERVOSO",,,,,
+40103005,PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) - SISTEMA NERVOSO,,,,,
 40103013,Análise computadorizada da voz,28.85,0,0,0,0
 40103056,Potencial evocado estacionário (Steady State),38.47,0,0,0,0
 40103064,Audiometria de tronco cerebral (PEA) BERA,91.27,0,0,0,0
@@ -2502,8 +2499,7 @@ SISTEMA NERVOSO",,,,,
 40104028,Cronaximetria,11.22,0,0,0,0
 40104036,Curva  I/T - medida de latência de nervo periférico,12.72,0,0,0,0
 40104125,Sistema tridimensional de avaliação do movimento que inclui vídeo acoplado à plataforma da força e eletromiografia,56.1,0,0,0,0
-40105008,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) -
-FUNCÃO RESPIRATÓRIA",,,,,
+40105008,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) - FUNCÃO RESPIRATÓRIA",,,,,
 40105016,Determinação das pressões respiratórias máximas,17.82,0,0,0,0
 40105024,Determinação dos volumes pulmonares por diluição de gases,5.77,0,0,0,0
 40105032,Determinação dos volumes pulmonares por pletismografia,47.51,0,0,0,0
@@ -2542,8 +2538,7 @@ FUNCÃO RESPIRATÓRIA",,,,,
 40201279,Ureteroscopia flexível unilateral,253.54,0,1,0,0
 40201287,Ureteroscopia rígida unilateral,58.35,0,0,0,0
 40201309,Avaliação endoscópica da deglutição (FEES),79.08,0,0,0,0
-40202003,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) -
-ENDOSCOPIA INTERVENCIONISTA",,,,,
+40202003,"PROCEDIMENTOS DIAGNÓSTICOS E TERAPÊUTICOS (ELETROFISIOLÓGICOS/MECÂNICOS E FUNCIONAIS) - ENDOSCOPIA INTERVENCIONISTA",,,,,
 40202011,Aritenoidectomia microcirúrgica endoscópica,205.18,0,0,0,0
 40202038,Endoscopia digestiva alta com biópsia e/ou citologia,95.74,0,0,0,0
 40202046,Biópsias por laparoscopia,88.02,0,0,0,0

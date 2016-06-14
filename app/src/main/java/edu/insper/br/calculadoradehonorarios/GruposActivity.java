@@ -18,68 +18,56 @@ import java.util.ArrayList;
  */
 public class GruposActivity extends AppCompatActivity {
 
+    private ArrayList<String> somaNomeProcedimentos;
+    private ArrayList<String> somaValorProcedimentos;
+    private ArrayList<String> somaNumeroAuxiliares;
 
     int posicaoGrupo = 0;
     int posicaoCategoria = 0;
     int posicaoSubcategoria = 0;
-    private ArrayList<Grupo> lista_grupo_escolhido2 = new ArrayList<>();
+    private ArrayList<Classificacao> listaDeGrupos = new ArrayList<>();
+    private Classificacao classificacaoAtual;
+    private Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupos);
 
+        database = Database.getInstance();
+        classificacaoAtual = database.retornaClassificaoAtual();
+        listaDeGrupos = classificacaoAtual.retornaLista();
+
         ListView mList = (ListView) findViewById(R.id.listViewGrupo);
 
-        posicaoGrupo = getIntent().getIntExtra("posicao",0);
+        somaNomeProcedimentos = getIntent().getStringArrayListExtra("somaNomeProcedimentos");
+        somaValorProcedimentos = getIntent().getStringArrayListExtra("somaValorProcedimentos");
+        somaNumeroAuxiliares = getIntent().getStringArrayListExtra("somaNumeroAuxiliares");
+
+
         posicaoCategoria = getIntent().getIntExtra("posicaoCategoria", 0);
         posicaoSubcategoria = getIntent().getIntExtra("posicaoSubcategoria", 0);
 
 
-        populateListView();
+        preencheLista();
         registerClickCallBack();
 
     }
+    private void preencheLista(){
+        ArrayList<String> nomeDosGrupos = new ArrayList<>();
 
-    private void populateListView(){
-
-        ArrayList<Categoria> categorias = new ArrayList<>();
-        AssetManager assetManager = getAssets();
-        CSVReader cvsReader = new CSVReader(assetManager);
-        categorias = cvsReader.retornaListaDeCategorias();
-        ArrayList<String> categorias_nomes = new ArrayList<>();
-
-
-        ArrayList<ArrayList<Subcategoria>> list_sub = new ArrayList<>();
-        ArrayList<ArrayList<Grupo>> lista_sub_grupos = new ArrayList<>();
-        ArrayList<ArrayList<Grupo>> lista_grupo_escolhido = new ArrayList<>();
-        ArrayList<String> nomeGrupo = new ArrayList<>();
-
-
-        for (Categoria i : categorias) {
-            list_sub.add(i.retornaSubcategorias());
-        }
-
-        for (ArrayList<Subcategoria> i: list_sub) {
-            for (Subcategoria j: i){
-                lista_grupo_escolhido.add(j.retornaGrupos());
-            }
-        }
-
-        lista_grupo_escolhido2 = lista_grupo_escolhido.get(posicaoGrupo);
-
-        for (Grupo i:lista_grupo_escolhido2){
-            nomeGrupo.add(i.retornaNomeDoGrupo());
-
+        for (Classificacao classificacao : classificacaoAtual.retornaLista()) {
+            nomeDosGrupos.add(classificacao.retornaNome());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.da_item,
-                nomeGrupo);
+                nomeDosGrupos);
         ListView mLista = (ListView) findViewById(R.id.listViewGrupo);
         mLista.setAdapter(adapter);
-
     }
+
 
     private void registerClickCallBack() {
 
@@ -89,7 +77,18 @@ public class GruposActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
 
-                Intent intent = new Intent(GruposActivity.this, ProcedimentosActivity.class).putExtra("posicao",position).putExtra("posicaoGrupo",posicaoGrupo);
+                database.mudaClassificacaoAtual(listaDeGrupos.get(position));
+
+
+                //Log.i("posicao", Integer.toString(position));
+                Intent intent = new Intent(GruposActivity.this, ProcedimentosActivity.class);
+                intent
+                        .putExtra("posicaoCategoria", posicaoCategoria)
+                        .putExtra("posicaoSubcategoria", posicaoSubcategoria)
+                        .putExtra("posicaoGrupo",position)
+                        .putStringArrayListExtra("somaNomeProcedimentos",somaNomeProcedimentos)
+                        .putStringArrayListExtra("somaValorProcedimentos",somaValorProcedimentos)
+                        .putStringArrayListExtra("somaNumeroAuxiliares",somaNumeroAuxiliares);
 
                 startActivity(intent);
 
